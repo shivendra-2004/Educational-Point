@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth-compat.js"></script>
+
+    <script>
+        // Initialize Firebase with your project configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDFpnZ_bYMlJZ3K08Ff6Ip8m3Bdy7ibeG0",
+            authDomain: "educational-point-4b19e.firebaseapp.com",
+            projectId: "educational-point-4b19e",
+            storageBucket: "educational-point-4b19e.appspot.com",
+            messagingSenderId: "81182574704",
+            appId: "1:81182574704:web:01791524b4e37316528cb5",
+            measurementId: "G-H7SFFWNYD0"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        // Check authentication status
+        document.addEventListener("DOMContentLoaded", function () {
+            firebase.auth().onAuthStateChanged((user) => {
+                if (!user) {
+                    // If not authenticated, redirect and show a popup
+                    alert("You must be logged in to access the quiz page. Redirecting to login...");
+                    window.location.href = "login.html";
+                }
+            });
+        });
+    </script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Page</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #43a047;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #quizContainer {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        #startButton, button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        #startButton:hover, button:hover {
+            background-color: #45a049;
+        }
+
+        .quiz-option {
+            margin: 5px;
+            padding: 10px;
+            cursor: pointer;
+            display: inline-block;
+            border: 1px solid #379277;
+            border-radius: 5px;
+            background-color: #30925c;
+        }
+
+        .quiz-option:hover {
+            background-color: #995b5b;
+        }
+    </style>
+</head>
+<body>
+    <div id="quizContainer">
+        <!-- Initial Landing Screen -->
+        <h2>Welcome to the Quiz</h2>
+        <p>Test your knowledge by answering a series of questions. Click the button below to get started!</p>
+        <button id="startButton" onclick="startQuiz()">Start Quiz</button>
+    </div>
+
+    <script src="quiz.js"></script>
+</body>
+</html>

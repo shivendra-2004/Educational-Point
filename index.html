@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Point</title>
+    <title>Quiz App</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth-compat.js"></script>
+    <script src="quiz.js"></script>
+    <script src="js/quiz.js"></script>
+
+    <script>
+        // Initialize Firebase with your project configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDFpnZ_bYMlJZ3K08Ff6Ip8m3Bdy7ibeG0",
+            authDomain: "educational-point-4b19e.firebaseapp.com",
+            projectId: "educational-point-4b19e",
+            storyesageBucket: "educational-point-4b19e.appspot.com",
+            messagingSenderId: "81182574704",
+            appId: "1:81182574704:web:01791524b4e37316528cb5",
+            measurementId: "G-H7SFFWNYD0"
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>Welcome to Educational Point</h1>
+        <div id="userInfo" class="corner-user-info"></div>
+
+    </header>
+    
+   <!-- Navigation Menu -->
+   <nav>
+    <nav>
+        <ul>
+            <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+            <li><a href="quiz.html"><i class="fas fa-question-circle"></i> Quiz</a></li>
+            <li><a href="login.html" id="loginLink"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+            <li><a href="signup.html" id="signupLink"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+            <li><a href="#" id="logoutLink" style="display: none;"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>        
+    </nav>
+
+    <!-- Form Section -->
+    <section id="generate-links-section">
+        <h2>Generate Educational Links</h2>
+        <label for="courseName">Course Name:</label>
+        <input type="text" id="courseName" placeholder="Enter course name"><br><br>
+
+        <label for="resourceType">Resource Type:</label>
+        <select id="resourceType">
+            <option value="notes">Notes</option>
+            <option value="video">Video</option>
+        </select><br><br>
+
+        <button onclick="generateLinks()">Generate Links</button><br><br>
+        <div id="generatedLinks" style="border: 2px solid #4CAF50; padding: 10px; background-color: #f0f8ff;"></div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about">
+        <h2>About Us</h2>
+        <p>Welcome to Educational Point. We are dedicated to providing high-quality educational resources to our students and learners.</p>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contact">
+        <h2>Contact Us</h2>
+
+        <div id="loading" style="display: none;">Sending...</div>
+
+        <form id="contactForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="5" required></textarea><br><br>
+
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <!-- Script to handle Contact Form submission -->
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const name = document.getElementById("name").value;
+            alert(`Thank you, ${name}! Your message has been sent successfully.`);
+            document.getElementById("contactForm").reset();
+        });
+    </script>
+
+    <!-- Script to generate educational links -->
+    <script>
+        function generateLinks() {
+            const courseName = document.getElementById('courseName').value.trim().toLowerCase();
+            const resourceType = document.getElementById('resourceType').value;
+            const validCourses = ['python', 'java', 'javascript', 'html', 'css', 'c', 'c++', 'c#', 'php', 'sql', 'typescript'];
+            
+            const courseLinks = {
+                python: [
+                    { link: "https://youtu.be/rfscVS0vtbw?si=HdAG7roigTuRab7D", channel: "freeCodeCamp" },
+                    { link: "https://youtu.be/UrsmFxEIp5k?si=lzbtGgHf7_WhBi7G", channel: "Code With Herry" },
+                    { link: "https://youtube.com/playlist?list=PLGjplNEQ1it8-0CmoljS5yeV-GlKSUEt0&si=mJznP422NuKjOWIO", channel: "Shradha Khapra" },
+                    { link: "https://youtu.be/ERCMXc8x7mc?si=qaBje5S0lluLgt6Q", channel: "Apna College" }
+                ],
+                java: [
+                    { link: "https://youtu.be/VZg5r9i90z0?si=boqvfoiFo1i9ZZm9", channel: "Learn Coding" },
+                    { link: "https://youtu.be/UmnCZ7-9yDY?si=G-tZaxENMS9xz_7z", channel: "Apna College" },
+                    { link: "https://youtube.com/playlist?list=PLfqMhTWNBTe3LtFWcvwpqTkUSlB32kJop&si=XLIktXfazCOVcOr6", channel: "Apna college" },
+                    { link: "https://youtube.com/playlist?list=PLu0W_9lII9agS67Uits0UnJyrYiXhDS6q&si=UyncNd0iSuU5kK3k", channel: "Code with Harry" }
+                ]
+            };
+
+            const websiteLinks = {
+                javapoint: "https://www.javatpoint.com/",
+                w3schools: "https://www.w3schools.com/",
+                geeksforgeeks: "https://www.geeksforgeeks.org/"
+            };
+
+            let linksHtml = '';
+
+            if (courseName && validCourses.includes(courseName)) {
+                if (resourceType === "video" && courseLinks[courseName]) {
+                    courseLinks[courseName].forEach(item => {
+                        linksHtml += `<p>Your YouTube link from <strong>${item.channel}</strong>: <a href="${item.link}" target="_blank">${item.link}</a></p>`;
+                    });
+                } else {
+                    linksHtml = ` 
+                        <p>Your JavaTPoint link: <a href="${websiteLinks.javapoint}${courseName}" target="_blank">${websiteLinks.javapoint}${courseName}</a></p>
+                        <p>Your W3Schools link: <a href="${websiteLinks.w3schools}${courseName}" target="_blank">${websiteLinks.w3schools}${courseName}</a></p>
+                        <p>Your GeeksforGeeks link: <a href="${websiteLinks.geeksforgeeks}${courseName}" target="_blank">${websiteLinks.geeksforgeeks}${courseName}</a></p>`;
+                }
+            } else if (courseName === "") {
+                linksHtml = '<p style="color: red;">Please enter a course name.</p>';
+            } else {
+                linksHtml = '<p style="color: red;">Invalid course name. Please enter a valid course name.</p>';
+            }
+
+            document.getElementById('generatedLinks').innerHTML = linksHtml;
+        }
+    </script>
+
+    <!-- Script to handle Firebase Authentication -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const userInfoDiv = document.getElementById('userInfo');
+            const loginLink = document.getElementById('loginLink');
+            const signupLink = document.getElementById('signupLink');
+            const logoutLink = document.getElementById('logoutLink');
+
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    const email = user.email;
+                    userInfoDiv.innerHTML = `<p>Logged in as: ${email}</p>`;
+                    loginLink.style.display = 'none';
+                    signupLink.style.display = 'none';
+                    logoutLink.style.display = 'inline';
+
+                    logoutLink.addEventListener('click', () => {
+                        firebase.auth().signOut().then(() => {
+                            window.location.reload();
+                        }).catch((error) => {
+                            console.error("Logout error:", error);
+                        });
+                    }, { once: true });
+                } else {
+                    userInfoDiv.innerHTML = '';
+                    loginLink.style.display = 'inline';
+                    signupLink.style.display = 'inline';
+                    logoutLink.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>© 2024 Educational Point</p>
+    </footer>
+</body>
+</html>

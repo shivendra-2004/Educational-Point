@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth-compat.js"></script>
+    
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDFpnZ_bYMlJZ3K08Ff6Ip8m3Bdy7ibeG0",
+            authDomain: "educational-point-4b19e.firebaseapp.com",
+            projectId: "educational-point-4b19e",
+            storageBucket: "educational-point-4b19e.appspot.com",
+            messagingSenderId: "81182574704",
+            appId: "1:81182574704:web:01791524b4e37316528cb5",
+            measurementId: "G-H7SFFWNYD0"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        function loginWithGoogle() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+
+            firebase.auth().signInWithPopup(provider)
+                .then((result) => {
+                    alert('Google Sign-In successful!');
+                    console.log(result.user); // Log user info
+                    window.location.href = 'index.html'; // Redirect to the main page
+                })
+                .catch((error) => {
+                    alert('Error: ' + error.message);
+                });
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+
+        /* Google Sign-In Button */
+        .google-signin-btn {
+            display: inline-block;
+            background-color: #ffffff;
+            border: 1px solid #dadce0;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 50px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .google-signin-btn:hover {
+            background-color: #f7f7f7;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        }
+
+        .google-signin-btn img {
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <h2>Login</h2>
+    <div class="google-signin-btn" onclick="loginWithGoogle()">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo">
+    </div>
+    <form id="loginForm">
+        <label for="loginEmail">Email:</label>
+        <input type="email" id="loginEmail" required><br><br>
+
+        <label for="loginPassword">Password:</label>
+        <input type="password" id="loginPassword" required><br><br>
+
+        <button type="button" onclick="login()">Login</button>
+    </form>
+
+    <p>Don't have an account? <a href="signup.html">Sign up here</a></p>
+
+    <script>
+        function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    alert('Login successful!');
+                    window.location.href = 'index.html'; // Redirect to the main page
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
+        }
+    </script>
+</body>
+</html>
