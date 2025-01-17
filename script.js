@@ -1,13 +1,13 @@
 //setting up firebase with our website//
 const firebaseApp = firebase.initializeApp({
 
-  apiKey: "AIzaSyDFpnZ_bYMlJZ3K08Ff6Ip8m3Bdy7ibeG0",
-  authDomain: "educational-point-4b19e.firebaseapp.com",
-  projectId: "educational-point-4b19e",
-  storageBucket: "educational-point-4b19e.appspot.com",
-  messagingSenderId: "81182574704",
-  appId: "1:81182574704:web:01791524b4e37316528cb5",
-  measurementId: "G-H7SFFWNYD0"
+  apiKey: "",
+  authDomain: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: "",
+  measurementId: ""
 
 });
 const db = firebaseApp.firestore();
